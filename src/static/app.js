@@ -473,6 +473,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Social sharing handler functions
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
   function handleShareTwitter(activityName, description, schedule) {
     const baseUrl = window.location.origin + window.location.pathname;
     const shareText = `Check out ${activityName} at Mergington High School! ${description} Schedule: ${schedule}`;
@@ -507,7 +513,7 @@ document.addEventListener("DOMContentLoaded", () => {
         showMessage('Failed to copy to clipboard', 'error');
       });
     } else {
-      // Fallback for older browsers
+      // Fallback for older browsers - using deprecated execCommand for backward compatibility
       const textArea = document.createElement('textarea');
       textArea.value = shareText;
       textArea.style.position = 'fixed';
@@ -583,19 +589,19 @@ document.addEventListener("DOMContentLoaded", () => {
       ${capacityIndicator}
       <div class="share-buttons">
         <span class="share-label">Share:</span>
-        <button class="share-btn share-twitter tooltip" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share on Twitter">
+        <button class="share-btn share-twitter tooltip" data-activity="${escapeHtml(name)}" data-description="${escapeHtml(details.description)}" data-schedule="${escapeHtml(formattedSchedule)}" title="Share on Twitter">
           <span class="share-icon">🐦</span>
           <span class="tooltip-text">Share on Twitter</span>
         </button>
-        <button class="share-btn share-facebook tooltip" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share on Facebook">
+        <button class="share-btn share-facebook tooltip" data-activity="${escapeHtml(name)}" data-description="${escapeHtml(details.description)}" data-schedule="${escapeHtml(formattedSchedule)}" title="Share on Facebook">
           <span class="share-icon">👍</span>
           <span class="tooltip-text">Share on Facebook</span>
         </button>
-        <button class="share-btn share-email tooltip" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share via Email">
+        <button class="share-btn share-email tooltip" data-activity="${escapeHtml(name)}" data-description="${escapeHtml(details.description)}" data-schedule="${escapeHtml(formattedSchedule)}" title="Share via Email">
           <span class="share-icon">✉️</span>
           <span class="tooltip-text">Share via Email</span>
         </button>
-        <button class="share-btn share-copy tooltip" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Copy Link">
+        <button class="share-btn share-copy tooltip" data-activity="${escapeHtml(name)}" data-description="${escapeHtml(details.description)}" data-schedule="${escapeHtml(formattedSchedule)}" title="Copy Link">
           <span class="share-icon">🔗</span>
           <span class="tooltip-text">Copy link to clipboard</span>
         </button>
